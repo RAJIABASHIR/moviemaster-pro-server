@@ -5,15 +5,12 @@ import { validateMoviePayload } from "../utils/validators.js";
 import { requireAuth } from "../middleware/auth.js";
 
 const router = Router();
-
 router.get("/", async (req, res) => {
   try {
     const {
       page = 1, limit = 12, sortBy = "createdAt", sortOrder = "desc",
       genres, minRating, maxRating, yearFrom, yearTo, q,
     } = req.query;
-
-    
     const p = Math.max(1, parseInt(page, 10) || 1);
     const l = Math.min(100, Math.max(1, parseInt(limit, 10) || 12));
     const allowedSort = new Set(["createdAt", "rating", "releaseYear", "title"]);
