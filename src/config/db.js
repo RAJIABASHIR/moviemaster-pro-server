@@ -5,7 +5,7 @@ let _db;
 
 export async function connectDB(uri, dbName) {
   client = new MongoClient(uri, { ignoreUndefined: true });
-  await client.connect();
+  //await client.connect();
   _db = client.db(dbName);
   await createIndexes();
   console.log("✅ MongoDB connected:", dbName);
