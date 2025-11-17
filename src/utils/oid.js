@@ -13,15 +13,11 @@ export function toObjectId(value) {
 
 export function serializeId(doc) {
   if (!doc || typeof doc !== "object") return doc;
-  const out = { ...doc };
-  const id = out._id;
-  if (id && typeof id === "object" && typeof id.toString === "function") {
-    out._id = id.toString();
-  }
-  return out;
+  const { _id, ...rest } = doc;
+  const id = _id != null ? String(_id) : undefined;
+  return id ? { id, _id: id, ...rest } : rest;
 }
 
-export function serializeMany(docs) {
-  if (!Array.isArray(docs)) return [];
-  return docs.map(serializeId);
+export function serializeMany(docs = []) {
+  return Array.isArray(docs) ? docs.map(serializeId) : [];
 }

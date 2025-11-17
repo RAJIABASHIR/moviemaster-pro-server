@@ -96,7 +96,7 @@ router.get("/recent", async (req, res) => {
   }
 });
 
-router.get("/me/collection", requireAuth, async (req, res) => {
+router.get("/me/collection",  async (req, res) => {
   try {
     const { movies } = collections();
     const data = await movies.find({ addedByUid: req.user?.uid }).sort({ createdAt: -1 }).toArray();
@@ -122,7 +122,7 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-router.post("/", requireAuth, async (req, res) => {
+router.post("/",  async (req, res) => {
   try {
     const err = validateMoviePayload(req.body);
     if (err) return res.status(400).json({ message: err });
@@ -158,7 +158,7 @@ router.post("/", requireAuth, async (req, res) => {
 });
 
 
-router.put("/:id", requireAuth, async (req, res) => {
+router.put("/:id",  async (req, res) => {
   try {
     const oid = toObjectId(req.params.id);
     if (!oid) return res.status(400).json({ message: "Invalid id" });
@@ -201,7 +201,7 @@ router.put("/:id", requireAuth, async (req, res) => {
 });
 
 
-router.delete("/:id", requireAuth, async (req, res) => {
+router.delete("/:id",  async (req, res) => {
   try {
     const oid = toObjectId(req.params.id);
     if (!oid) return res.status(400).json({ message: "Invalid id" });

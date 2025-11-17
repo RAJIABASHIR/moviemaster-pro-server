@@ -6,7 +6,7 @@ import { toObjectId, serializeMany } from "../utils/oid.js";
 const router = Router();
 
 
-router.get("/", requireAuth, async (req, res) => {
+router.get("/",  async (req, res) => {
   const { watchlist, movies } = collections();
   const wl = await watchlist.findOne({ userUid: req.user.uid });
   if (!wl) return res.json({ userUid: req.user.uid, movieIds: [] });
@@ -17,7 +17,7 @@ router.get("/", requireAuth, async (req, res) => {
 });
 
 
-router.post("/:movieId", requireAuth, async (req, res) => {
+router.post("/:movieId",  async (req, res) => {
   const movieId = toObjectId(req.params.movieId);
   if (!movieId) return res.status(400).json({ message: "Invalid movie id" });
 
@@ -38,7 +38,7 @@ router.post("/:movieId", requireAuth, async (req, res) => {
 });
 
 
-router.delete("/:movieId", requireAuth, async (req, res) => {
+router.delete("/:movieId",  async (req, res) => {
   const movieId = toObjectId(req.params.movieId);
   if (!movieId) return res.status(400).json({ message: "Invalid movie id" });
 
